@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; font-family: sans-serif; }
+    #map { height: 100%; width: 100%; }
+
+    /* optional: nice popup styling */
+    .leaflet-popup-content { font-size: 14px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script>
+  // === YOUR DATA (inline) ===
+  const items = [
+    { name: "Beijing",   lat: 39.9042, lng: 116.4074, desc: "Capital" },
+    { name: "Shanghai",  lat: 31.2304, lng: 121.4737, desc: "Financial hub" },
+    { name: "Shenzhen",  lat: 22.5431, lng: 114.0579, desc: "Tech city" },
+    { name: "Chengdu",   lat: 30.5728, lng: 104.0668, desc: "Pandas!" },
+  ];
+
+  // === OR: Load from data.json ===
+  // fetch('data.json')
+  //   .then(r => r.json())
+  //   .then(items => renderMarkers(items));
+
+  const map = L.map('map').setView([35.86, 104.19], 5);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution:
+      '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
+
+  function renderMarkers(items) {
+    const group = L.featureGroup();
+
+    items.forEach(item => {
+      L.marker([item.lat, item.lng])
+        .bindPopup(`<b>${item.name}</b><br>${item.desc}`)
+        .addTo(group);
+    });
+
+    group.addTo(map);
+    map.fitBounds(group.getBounds().pad(0.1));
+  }
+
+  renderMarkers(items);
+</script>
+</body>
+</html>
