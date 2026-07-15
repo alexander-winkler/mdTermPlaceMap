@@ -19,18 +19,11 @@
 <div id="map"></div>
 
 <script>
-  // === YOUR DATA (inline) ===
-  const items = [
-    { name: "Beijing",   lat: 39.9042, lng: 116.4074, desc: "Capital" },
-    { name: "Shanghai",  lat: 31.2304, lng: 121.4737, desc: "Financial hub" },
-    { name: "Shenzhen",  lat: 22.5431, lng: 114.0579, desc: "Tech city" },
-    { name: "Chengdu",   lat: 30.5728, lng: 104.0668, desc: "Pandas!" },
-  ];
 
-  // === OR: Load from data.json ===
-  // fetch('data.json')
-  //   .then(r => r.json())
-  //   .then(items => renderMarkers(items));
+  // === Load from data.json ===
+  fetch('data.json')
+    .then(r => r.json())
+     .then(items => renderMarkers(items));
 
   const map = L.map('map').setView([35.86, 104.19], 5);
 
