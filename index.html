@@ -37,8 +37,8 @@
     const group = L.featureGroup();
 
     items.forEach(item => {
-      L.marker([item.latitude, item.longitude])
-        .bindPopup(`<b>${item.name} <a href="https://term.museum-digital.de/md-de/place/${item.id}">(${item.id})</a></b><br>`${item.note ? item.note.substring(0, 200) + (item.note.length > 200 ? '...' : '') : ''}``)
+L.marker([item.latitude, item.longitude])
+  .bindPopup(`<b>${item.name} <a href="https://term.museum-digital.de/md-de/place/${item.id}">(${item.id})</a></b><br>${item.note ? item.note.substring(0, 200) + (item.note.length > 200 ? '...' : '') : ''}`)
         .addTo(group);
     });
 
